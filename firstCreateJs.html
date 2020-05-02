@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+    <script>
+        window.addEventListener("load", init);
+
+        function init() {
+            // Stage
+            var stage = new createjs.Stage("myCanvas");
+
+            var circleGreen = new createjs.Shape();
+            circleGreen.graphics
+                .beginFill("Green")
+                .drawCircle(0, 0, 10);
+
+            /**
+             * テキスト 
+             */
+            var message1 = new createjs.Text("HELLO, WORLD!", "24px serif", "DarkRed");
+            message1.y = 0;
+            stage.addChild(message1);
+
+            /**
+             * コンテナ1 
+             */
+            var container1 = new createjs.Container();
+            container1.x = 0;
+            container1.y = 0;
+            stage.addChild(container1);
+
+            var circleRed = new createjs.Shape();
+            circleRed.graphics
+                .beginFill("DarkRed")
+                .drawCircle(0, 0, 50);
+            circleRed.y = 100;
+            circleRed.addEventListener("click", handleRedClicked);
+            container1.addChild(circleRed);
+
+            var circleBlue = new createjs.Shape();
+            circleBlue.graphics
+                .beginFill("Blue")
+                .drawCircle(0, 0, 50);
+            circleBlue.y = 250;
+            circleBlue.addEventListener("click", handleBlueClicked);
+            container1.addChild(circleBlue);
+
+            /**
+             * コンテナ2 
+             */
+            var container2 = new createjs.Container();
+            container2.x = 300;
+            container2.y = 300;
+            stage.addChild(container2);
+
+            for (var i = 0; i < 10; i++) {
+                var circleYellow = new createjs.Shape();
+                circleYellow.graphics
+                    .beginFill("Yellow")
+                    .drawCircle(0, 0, 30);
+                circleYellow.x = 200 * Math.cos(i * 360 / 10 * Math.PI / 180);
+                circleYellow.y = 200 * Math.sin(i * 360 / 10 * Math.PI / 180);
+                circleYellow.addEventListener("mouseover", handleMouseOver);
+                circleYellow.addEventListener("mouseout", handleMouseOut);
+                container2.addChild(circleYellow);
+            }
+
+            stage.addChild(circleGreen);
+
+            /**
+             * tick()
+             */
+            createjs.Ticker.addEventListener("tick", handleTick);
+            function handleTick() {
+                circleGreen.x = stage.mouseX;
+                circleGreen.y = stage.mouseY;
+
+                container1.x += 5;
+                if (container1.x > 640) {
+                    container1.x = 0;
+                }
+
+                container2.rotation += 3;
+
+                stage.update();
+            }
+
+            /**
+             * handleXxx()
+             */
+            function handleRedClicked(event) {
+                container1.removeChild(circleRed);
+                alert("Red Circle is clicked!");
+            }
+            function handleBlueClicked(event) {
+                container1.removeChild(circleBlue);
+                alert("Blue Circle is clicked!");
+            }
+            function handleMouseOver() {
+                circleYellow.graphics
+                .clear()
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="640" height="640"></canvas>
+</body>
+
+</html>
