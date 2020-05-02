@@ -10,6 +10,7 @@
         function init() {
             // Stage
             var stage = new createjs.Stage("myCanvas");
+            stage.enableMouseOver();
 
             var circleGreen = new createjs.Shape();
             circleGreen.graphics
@@ -98,9 +99,17 @@
                 container1.removeChild(circleBlue);
                 alert("Blue Circle is clicked!");
             }
-            function handleMouseOver() {
+            function handleMouseOver(event) {
                 circleYellow.graphics
-                .clear()
+                    .clear()
+                    .beginFill("Orange")
+                    .drawCircle(0, 0, 40);
+            }
+            function handleMouseOut(event) {
+                circleYellow.graphics
+                    .clear()
+                    .beginFill("Yellow")
+                    .drawCircle(0, 0, 30);
             }
         }
     </script>
