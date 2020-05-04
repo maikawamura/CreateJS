@@ -10,18 +10,19 @@
         function init() {
             createjs.Ticker.timingMode = createjs.Ticker.RAF;
 
-            // Stage
+            /**
+             * Stage 
+             */
             var stage = new createjs.Stage("myCanvas");
             stage.enableMouseOver();
 
+            // mouse
             var circleGreen = new createjs.Shape();
             circleGreen.graphics
                 .beginFill("Green")
                 .drawCircle(0, 0, 10);
 
-            /**
-             * テキスト 
-             */
+            // Hello text
             var message1 = new createjs.Text("HELLO, WORLD!", "24px serif", "DarkRed");
             message1.y = 0;
             stage.addChild(message1);
