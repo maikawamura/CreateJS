@@ -41,7 +41,28 @@
             var dragPosX;
             var dragPosY;
 
+            // clear button
+            var clearButton = new createjs.Container();
+            clearButton.x = 550;
+            clearButton.y = 5;
+            clearButton.addEventListener("click", handleClearClick)
 
+            var buttonBg = new createjs.Shape();
+            var btnBgW = 80;
+            var btnBgH = 40;
+            buttonBg.graphics
+                .setStrokeStyle(1)
+                .beginStroke("#563d7c")
+                .beginFill("white")
+                .drawRoundRect(0, 0, btnBgW, btnBgH, 4);
+            clearButton.addChild(buttonBg);
+
+            var label = new createjs.Text("Clear", "16px sans-serif", "#563d7c");
+            label.x = btnBgW / 2;
+            label.y = btnBgH / 2;
+            label.textAlign = "center";
+            label.textBaseline = "middle";
+            clearButton.addChild(label);
 
             /**
              * コンテナ1 
@@ -88,6 +109,7 @@
             }
 
             stage.addChild(dragRect);
+            stage.addChild(clearButton);
             stage.addChild(circleGreen);
 
             /**
@@ -140,6 +162,10 @@
             }
             function handlePressUp(event) {
                 console.log("event: handlePressUp()");
+            }
+
+            function handleClearClick(event) {
+                location.reload();
             }
         }
     </script>
