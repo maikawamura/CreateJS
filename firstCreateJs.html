@@ -27,6 +27,22 @@
             message1.y = 0;
             stage.addChild(message1);
 
+            // drag Rect
+            var dragRect = new createjs.Shape();
+            dragRect.graphics
+                .beginFill("pink")
+                .drawRect(0, 0, 50, 50);
+            dragRect.x = stage.canvas.width / 2;
+            dragRect.y = stage.canvas.height / 2;
+            dragRect.addEventListener("mousedown", handleMouseDown);
+            dragRect.addEventListener("pressmove", handlePressMove);
+            dragRect.addEventListener("pressup", handlePressUp);
+
+            var dragPosX;
+            var dragPosY;
+
+
+
             /**
              * コンテナ1 
              */
@@ -71,6 +87,7 @@
                 container2.addChild(circleYellow);
             }
 
+            stage.addChild(dragRect);
             stage.addChild(circleGreen);
 
             /**
@@ -113,6 +130,18 @@
                     .clear()
                     .beginFill("Yellow")
                     .drawCircle(0, 0, 30);
+            }
+
+            function handleMouseDown(event) {
+                dragPosX = stage.mouseX - dragRect.x;
+                dragPosY = stage.mouseY - dragRect.y;
+            }
+            function handlePressMove(event) {
+                dragRect.x = stage.mouseX - dragPosX;
+                dragRect.y = stage.mouseY - dragPosY;
+            }
+            function handlePressUp(event) {
+                console.log("event: handlePressUp()");
             }
         }
     </script>
